@@ -16,7 +16,7 @@ const LandingPage = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-64px)] text-center px-4">
       <div className="max-w-2xl">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Experiments.</h1>
+        <h1 className="text-4xl font-bold mb-4">Welcome to Experiments</h1>
         <p className="text-xl mb-8">Login to get started</p>
         <SignedIn>
           <Button onClick={handleGetStarted}>Get Started</Button>
