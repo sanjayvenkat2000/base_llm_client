@@ -9,7 +9,8 @@ import {
 } from '@/components/ui/tooltip';
 import { useServiceProvider } from '@/components/service-provider';
 import { useQuery } from '@tanstack/react-query';
-import { AuthTest } from '@/components/AuthTest';
+import { MediaWidget } from '../components/MediaWidget';
+
 // User message component
 const UserMessage = ({ message, onEdit, onDelete }: { 
   message: string, 
@@ -112,12 +113,12 @@ const ChatInput = ({ onSend }: { onSend: (message: string) => void }) => {
 
 const ChatPage = () => {
 
-  const serviceProvider  = useServiceProvider();
+  // const serviceProvider  = useServiceProvider();
 
-  const {data} = useQuery({
-    queryKey: ['chat'],
-    queryFn: () => serviceProvider.getProtected()
-  })
+  // const {data} = useQuery({
+  //   queryKey: ['chat'],
+  //   queryFn: () => serviceProvider.getProtected()
+  // })
   const [messages, setMessages] = useState<Array<{
     id: string;
     content: string;
@@ -175,13 +176,16 @@ Our eyes are more sensitive to blue light than violet, so we predominantly perce
     console.log('Regenerate response');
   };
 
-  console.log(`Server response: ${JSON.stringify(data)}`);
+  // console.log(`Server response: ${JSON.stringify(data)}`);
 
   return (
     <div className="flex flex-col h-[calc(100vh-80px)] mt-[80px] relative z-0">
       {/* Messages area with scrolling */}
       <div className="flex-1 overflow-y-auto">
         <div className="max-w-[786px] mx-auto px-4 py-4">
+          {/* Media Widget integration */}
+          <MediaWidget />
+          
           {messages.map((message) => (
             message.role === 'user' ? (
               <UserMessage 
@@ -201,8 +205,7 @@ Our eyes are more sensitive to blue light than violet, so we predominantly perce
           
           {/* Auth testing components */}
           <div className="mt-6 pt-4 border-t">
-            <AuthTest />
-            <AuthTest />
+            {/* Removed AuthTest components */}
           </div>
         </div>
       </div>

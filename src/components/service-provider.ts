@@ -92,49 +92,6 @@ export class ServiceProvider {
       throw error;
     }
   }
-
-  // Method to test different auth formats with FastAPI
-  async testAuthFormats(token: string): Promise<void> {
-    interface FormatTest {
-      name: string;
-      headers: Record<string, string>;
-    }
-
-    const formats: FormatTest[] = [
-      { name: "Standard Bearer", headers: { "Authorization": `Bearer ${token}` } },
-      { name: "URL-encoded Bearer", headers: { "Authorization": `Bearer ${encodeURIComponent(token)}` } },
-      { name: "Token only", headers: { "Authorization": token } },
-      { name: "URL-encoded token only", headers: { "Authorization": encodeURIComponent(token) } },
-      { name: "Custom header", headers: { "X-API-Token": token } },
-      { name: "Token in Bearer without space", headers: { "Authorization": `Bearer${token}` } },
-    ];
-
-    console.log("Testing different authentication formats...");
-    
-    for (const format of formats) {
-      try {
-        const response = await fetch(`${this.apiUrl}/protected`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            ...format.headers,
-          },
-        });
-        
-        console.log(`Format: ${format.name}`);
-        console.log(`Status: ${response.status}`);
-        
-        if (response.ok) {
-          console.log("SUCCESS: This format works!");
-          return; // Exit once we find a working format
-        }
-      } catch (error) {
-        console.error(`Error with format ${format.name}:`, error);
-      }
-    }
-    
-    console.log("All authentication formats failed");
-  }
 }
 
 export function useServiceProvider(options: ServiceProviderProps = {}) {
